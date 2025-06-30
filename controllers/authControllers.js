@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const registerController = async(req,res)=>{
     try {
@@ -45,8 +46,12 @@ const loginController = async(req,res)=>{
         if(!isMatch){
             return res.status(500).send({message:'Invalid password'})
         }
+
+        // token
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"7d"})
+
         user.password = undefined
-        res.status(200).json({message:'login successfully',user});
+        res.status(200).json({message:'login successfully',user,token});
     } catch (error) {
         console.log(error)
         res.status(500).json({error: 'Internal Server Error'});
