@@ -19,6 +19,7 @@ app.use('/auth',require('./routes/authRoutes'))
 app.use('/user',require('./routes/userRoutes'))
 app.use('/resturant',require('./routes/resturantRoutes'))
 app.use('/category',require('./routes/categoryRoutes'))
+app.use('/food',require('./routes/foodRoutes'))
 
 app.get('/', (req,res)=>{
 return res.status (200).send('Welcome to Food Server app')
